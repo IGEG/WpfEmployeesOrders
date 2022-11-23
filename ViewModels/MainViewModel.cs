@@ -11,11 +11,11 @@ using WpfEmployeesOrders.Models;
 
 namespace WpfEmployeesOrders.ViewModels
 {
-    public partial class EmployeeViewModel : ObservableObject
+    public partial class MainViewModel : ObservableObject
     {
         ApplicationContext appContext = new ApplicationContext();
         [ObservableProperty] private ObservableCollection<Employee> _employeesCollection;
-        public EmployeeViewModel()
+        public MainViewModel()
         {
             appContext.Employees.Load();
             EmployeesCollection = appContext.Employees.Local.ToObservableCollection();

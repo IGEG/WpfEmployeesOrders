@@ -24,7 +24,10 @@ namespace WpfEmployeesOrders
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new EmployeeViewModel();
+            var viewModel = new MainViewModel();
+            EmployeesGrid.DataContext = viewModel.EmployeesCollection;
+            
         }
+     
     }
 }
