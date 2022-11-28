@@ -10,25 +10,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfEmployeesOrders.ViewModels;
+using WpfEmployeesOrders.Models;
 
-namespace WpfEmployeesOrders
+namespace WpfEmployeesOrders.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EmployeeWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EmployeeWindow : Window
     {
-        public MainWindow()
+        public Employee Employee { get; private set; }
+        public EmployeeWindow(Employee employee)
         {
             InitializeComponent();
-            var viewModel = new MainViewModel();
-            DataContext = viewModel;
-            EmployeesGrid.DataContext = viewModel.EmployeesCollection;
-            
+            Employee = employee;
+            DataContext = Employee; 
         }
-     
+        void Accept_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 }

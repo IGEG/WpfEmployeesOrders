@@ -14,6 +14,14 @@
                 <x:Type TypeName="local:Gender"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <!--стииль кнопки-->
+        <Style x:Key="BtnUser">
+            <Setter Property="Control.FontFamily" Value="Verdana" />
+            <Setter Property="Control.Background" Value="Gray" />
+            <Setter Property="Control.Foreground" Value="White" />
+            <Setter Property="Control.Margin" Value="10" />
+            <Setter Property="Control.Padding" Value="5"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="ManageTab">
@@ -29,13 +37,18 @@
                         <DataGrid Name="EmployeesGrid" Margin="10,5,10,5" ItemsSource="{Binding}" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray"
     RowBackground="LightGray" AlternatingRowBackground="White">
                             <DataGrid.Columns>
-                            <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="150"/> 
-                            <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="150"/> 
-                            <DataGridTextColumn Header="Отчество" Binding="{Binding SurName}" Width="150"/>
-                            <DataGridTextColumn Header="Дата Рождения" Binding="{Binding DateOfBithday}" Width="150"/>
-                                <DataGridComboBoxColumn Header="Пол" SelectedItemBinding="{Binding GenderEmployee}" ItemsSource="{Binding Source={StaticResource myEnum}}" Width="150"/>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" IsReadOnly="True" Width="150"/>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" IsReadOnly="True"  Width="150"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding SurName}" IsReadOnly="True"  Width="150"/>
+                                <DataGridTextColumn Header="Дата Рождения" Binding="{Binding DateOfBirthday , StringFormat=\{0:d-MM-yyyy\}}" IsReadOnly="True"  Width="150"/>
+                                <DataGridComboBoxColumn Header="Пол" SelectedItemBinding="{Binding GenderEmployee}" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource myEnum}}" Width="150"/>
                             </DataGrid.Columns>
                         </DataGrid>
+                        <DockPanel HorizontalAlignment="Left">
+                            <Button x:Name="AddEmployeeBtn" Command="{Binding AddEmployeeCommand}" Style="{StaticResource BtnUser}" Content="Добавить"/>
+                            <Button x:Name="ChangeEmployeeBtn" Style="{StaticResource BtnUser}" Content="Изменить"/>
+                            <Button x:Name="DeleteEmployeeBtn" Style="{StaticResource BtnUser}" Content="Удалить"/>
+                        </DockPanel>
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>

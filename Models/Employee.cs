@@ -23,7 +23,7 @@ namespace WpfEmployeesOrders.Models
 
     public enum Gender
     {
-        Male,
-        Femail
+        М,
+        Ж
     }
 }
