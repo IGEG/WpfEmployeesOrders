@@ -70,8 +70,8 @@
                         </DataGrid>
                         <DockPanel HorizontalAlignment="Left">
                             <Button x:Name="AddDivisionBtn" Command="{Binding AddDivisionCommand}" Style="{StaticResource BtnUser}" Content="Добавить"/>
-                            <Button x:Name="ChangeDivisionBtn" Style="{StaticResource BtnUser}" Content="Изменить"/>
-                            <Button x:Name="DeleteDivisionBtn" Style="{StaticResource BtnUser}" Content="Удалить"/>
+                            <Button x:Name="ChangeDivisionBtn" Command="{Binding EditDivisionCommand}" CommandParameter="{Binding ElementName=DivisionGrid, Path=SelectedItem}" Style="{StaticResource BtnUser}" Content="Изменить"/>
+                            <Button x:Name="DeleteDivisionBtn" Command="{Binding DeleteDivisionCommand}" CommandParameter="{Binding ElementName=DivisionGrid, Path=SelectedItem}" Style="{StaticResource BtnUser}" Content="Удалить"/>
                         </DockPanel>
                     </StackPanel>
                 </TabItem.Content>

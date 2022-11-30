@@ -86,6 +86,36 @@ namespace WpfEmployeesOrders.ViewModels
             }
         }
 
+        //--редактирование отдела--//
+        private ICommand _editDivisionCommand;
+        public ICommand EditDivisionCommand { get => _editDivisionCommand; set => SetProperty(ref _editDivisionCommand, value); }
+        private void EditDivision(Division _selectedItem)
+        {
+            Division? division = _selectedItem as Division;
+            if (division == null) { MessageBox.Show("Отдел не выбран!"); return; }
+            DivisionWindow divisionWindow = new DivisionWindow(division);
+            if (divisionWindow.ShowDialog() == true)
+            {
+                Division newDivision = divisionWindow.Division;
+                appContext.Entry(newDivision).State = EntityState.Modified;
+                appContext.SaveChanges();
+            }
+
+        }
+
+
+        //--удаляем отдел--//
+        private ICommand _deleteDivisionCommand;
+        public ICommand DeleteDivisionCommand { get => _deleteDivisionCommand; set => SetProperty(ref _deleteDivisionCommand, value); }
+        private void DeleteDivision(Division _selectedItem)
+        {
+            Division? division = _selectedItem as Division;
+            if (division == null) { MessageBox.Show("Отдел не выбран!"); return; }
+            appContext.Divisions.Remove(division);
+            appContext.SaveChanges();
+
+
+        }
 
         public MainViewModel()
         {
@@ -95,7 +125,9 @@ namespace WpfEmployeesOrders.ViewModels
             DivisionCollection = appContext.Divisions.Local.ToObservableCollection();
             AddEmployeeCommand = new RelayCommand(AddEmployee);
             EditEmployeeCommand = new RelayCommand<Employee>(EditEmployee);
+            EditDivisionCommand = new RelayCommand<Division>(EditDivision);
             DeleteEmployeeCommand = new RelayCommand<Employee>(DeleteEmployee);
+            DeleteDivisionCommand = new RelayCommand<Division>(DeleteDivision);
             AddDivisionCommand = new RelayCommand(AddDivision);
 
         }
