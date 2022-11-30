@@ -27,6 +27,7 @@ namespace WpfEmployeesOrders
             var viewModel = new MainViewModel();
             DataContext = viewModel;
             EmployeesGrid.DataContext = viewModel.EmployeesCollection;
+            DivisionGrid.DataContext = viewModel.DivisionCollection;
             
         }
      

@@ -19,6 +19,8 @@ namespace WpfEmployeesOrders.ViewModels
     {
         ApplicationContext appContext = new ApplicationContext();
         [ObservableProperty] private ObservableCollection<Employee> _employeesCollection;
+        [ObservableProperty] private ObservableCollection<Division> _divisionCollection;
+
 
         //--добавляем нового сотрудникаа--//
         private ICommand _addEmployeeCommand;
@@ -36,12 +38,32 @@ namespace WpfEmployeesOrders.ViewModels
             }
         }
 
+         //--добавляем новый отдел--//
+        private ICommand _addDivisionCommand;
+        public ICommand AddDivisionCommand { get => _addDivisionCommand; set => SetProperty(ref _addDivisionCommand, value); }
+
+        private void AddDivision()
+        {
+            DivisionWindow divisionWindow = new DivisionWindow(new Division());
+            if (divisionWindow.ShowDialog() == true)
+            {
+                Division newDivision = divisionWindow.Division;
+                appContext.Divisions.Add(newDivision);
+                appContext.SaveChanges();
+           
+            }
+        }
+
 
         public MainViewModel()
         {
             appContext.Employees.Load();
             EmployeesCollection = appContext.Employees.Local.ToObservableCollection();
+            appContext.Divisions.Load();
+            DivisionCollection = appContext.Divisions.Local.ToObservableCollection();
             AddEmployeeCommand = new RelayCommand(AddEmployee);
+            AddDivisionCommand = new RelayCommand(AddDivision);
+
         }
     }
 }

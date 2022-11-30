@@ -59,6 +59,22 @@
                         <TextBlock Margin="3">Подразделения</TextBlock>
                     </StackPanel>
                 </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <DataGrid Name="DivisionGrid" Margin="10,5,10,5" ItemsSource="{Binding}" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray"
+    RowBackground="LightGray" AlternatingRowBackground="White">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название отдела" Binding="{Binding DivisionName}" IsReadOnly="True" Width="150"/>
+                                <DataGridTextColumn Header="Руководитель" Binding="{Binding Chief.FirstName}" IsReadOnly="True"  Width="150"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <DockPanel HorizontalAlignment="Left">
+                            <Button x:Name="AddDivisionBtn" Command="{Binding AddDivisionCommand}" Style="{StaticResource BtnUser}" Content="Добавить"/>
+                            <Button x:Name="ChangeDivisionBtn" Style="{StaticResource BtnUser}" Content="Изменить"/>
+                            <Button x:Name="DeleteDivisionBtn" Style="{StaticResource BtnUser}" Content="Удалить"/>
+                        </DockPanel>
+                    </StackPanel>
+                </TabItem.Content>
             </TabItem>
             <TabItem x:Name="ordersTab">
                 <TabItem.Header>

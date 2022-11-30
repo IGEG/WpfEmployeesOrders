@@ -11,7 +11,6 @@
     <None Remove="Img\division.png" />
     <None Remove="Img\employee.png" />
     <None Remove="Img\order.png" />
-    <None Remove="shop.db" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,9 +36,10 @@
     <Resource Include="Img\order.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="shop.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

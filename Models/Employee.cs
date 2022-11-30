@@ -18,6 +18,9 @@ namespace WpfEmployeesOrders.Models
         [ObservableProperty] private string? _dateOfBirthday;
 
         [ObservableProperty] private Gender _genderEmployee;
+       
+        [ObservableProperty] private Division? _division;
+
 
     }
 
