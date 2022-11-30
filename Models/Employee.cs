@@ -20,6 +20,10 @@ namespace WpfEmployeesOrders.Models
         [ObservableProperty] private Gender _genderEmployee;
        
         [ObservableProperty] private Division? _division;
+        public override string ToString()
+        {
+            return $"{LastName} {FirstName} {SurName}";
+        }
 
 
     }

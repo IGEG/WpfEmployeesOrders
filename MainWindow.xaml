@@ -65,7 +65,7 @@
     RowBackground="LightGray" AlternatingRowBackground="White">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Название отдела" Binding="{Binding DivisionName}" IsReadOnly="True" Width="150"/>
-                                <DataGridTextColumn Header="Руководитель" Binding="{Binding Chief.FirstName}" IsReadOnly="True"  Width="150"/>
+                                <DataGridTextColumn Header="Руководитель" Binding="{Binding Chief}" IsReadOnly="True"  Width="150"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <DockPanel HorizontalAlignment="Left">
