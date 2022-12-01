@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
-
+using System.Windows.Navigation;
 
 namespace WpfEmployeesOrders.Models
 {
@@ -19,11 +19,22 @@ namespace WpfEmployeesOrders.Models
 
         [ObservableProperty] private Gender _genderEmployee;
        
-        [ObservableProperty] private Division? _division;
+        [ObservableProperty] private string? _divisionName;
         public override string ToString()
         {
             return $"{LastName} {FirstName} {SurName}";
         }
+        public override bool Equals(object? obj)
+        {
+            if (obj is Employee employee)
+            return _lastName == employee._lastName && FirstName == employee.FirstName && SurName == employee.SurName
+                    && DateOfBirthday == employee.DateOfBirthday && GenderEmployee == employee.GenderEmployee;
+            return false;
+        }
+
+        public override int GetHashCode() => EmployeeId.GetHashCode();
+        
+
 
 
     }

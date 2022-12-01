@@ -10,7 +10,7 @@ using WpfEmployeesOrders.Data;
 namespace WpfEmployeesOrders.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221128122007_initial")]
+    [Migration("20221201111115_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -28,7 +28,12 @@ namespace WpfEmployeesOrders.Migrations
                     b.Property<string>("DivisionName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Divisions");
                 });
@@ -42,8 +47,8 @@ namespace WpfEmployeesOrders.Migrations
                     b.Property<string>("DateOfBirthday")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("DivisionId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("DivisionName")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("TEXT");
@@ -58,9 +63,6 @@ namespace WpfEmployeesOrders.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("EmployeeId");
-
-                    b.HasIndex("DivisionId")
-                        .IsUnique();
 
                     b.ToTable("Employees");
                 });
@@ -87,15 +89,15 @@ namespace WpfEmployeesOrders.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("WpfEmployeesOrders.Models.Employee", b =>
+            modelBuilder.Entity("WpfEmployeesOrders.Models.Division", b =>
                 {
-                    b.HasOne("WpfEmployeesOrders.Models.Division", "Division")
-                        .WithOne("Chief")
-                        .HasForeignKey("WpfEmployeesOrders.Models.Employee", "DivisionId")
+                    b.HasOne("WpfEmployeesOrders.Models.Employee", "Chief")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Division");
+                    b.Navigation("Chief");
                 });
 
             modelBuilder.Entity("WpfEmployeesOrders.Models.Order", b =>
@@ -107,11 +109,6 @@ namespace WpfEmployeesOrders.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("WpfEmployeesOrders.Models.Division", b =>
-                {
-                    b.Navigation("Chief");
                 });
 #pragma warning restore 612, 618
         }

@@ -18,18 +18,18 @@ namespace WpfEmployeesOrders.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
-        ApplicationContext appContext = new ApplicationContext();
-        [ObservableProperty] private ObservableCollection<Employee> _employeesCollection;
-        [ObservableProperty] private ObservableCollection<Division> _divisionCollection;
-        [ObservableProperty] private ObservableCollection<Order> _ordersCollection;
+        ApplicationContext appContext = new();
+        [ObservableProperty] private ObservableCollection<Employee>? _employeesCollection;
+        [ObservableProperty] private ObservableCollection<Division>? _divisionCollection;
+        [ObservableProperty] private ObservableCollection<Order>? _ordersCollection;
 
         //--добавляем нового сотрудникаа--//
-        private ICommand _addEmployeeCommand;
-        public ICommand AddEmployeeCommand { get => _addEmployeeCommand; set => SetProperty(ref _addEmployeeCommand, value); }
+        private ICommand? _addEmployeeCommand;
+        public ICommand? AddEmployeeCommand { get => _addEmployeeCommand; set => SetProperty(ref _addEmployeeCommand, value); }
 
         private void AddEmployee()
         {
-            EmployeeWindow employeeWindow = new EmployeeWindow(new Employee());
+            EmployeeWindow employeeWindow = new (new Employee());
             if (employeeWindow.ShowDialog() == true)
             {
                 Employee newEmployee = employeeWindow.Employee;
@@ -40,13 +40,13 @@ namespace WpfEmployeesOrders.ViewModels
         }
 
         //--редактирование данных выбранного сотрудника--//
-        private ICommand _editEmployeeCommand;
-        public ICommand EditEmployeeCommand { get => _editEmployeeCommand; set => SetProperty(ref _editEmployeeCommand, value); }
-        private void EditEmployee(Employee _selectedItem)
+        private ICommand? _editEmployeeCommand;
+        public ICommand? EditEmployeeCommand { get => _editEmployeeCommand; set => SetProperty(ref _editEmployeeCommand, value); }
+        private void EditEmployee(Employee? _selectedItem)
         {
             Employee? employee = _selectedItem as Employee;
             if (employee == null) { MessageBox.Show("Сотрудник не выбран!"); return; }
-            EmployeeWindow employeeWindow = new EmployeeWindow(employee);
+            EmployeeWindow employeeWindow = new (employee);
             if (employeeWindow.ShowDialog() == true)
             {
                 Employee newEmployee = employeeWindow.Employee;
@@ -58,9 +58,9 @@ namespace WpfEmployeesOrders.ViewModels
 
 
         //--удаляем выбранного сотрудника--//
-        private ICommand _deleteEmployeeCommand;
-        public ICommand DeleteEmployeeCommand { get => _deleteEmployeeCommand; set => SetProperty(ref _deleteEmployeeCommand, value); }
-        private void DeleteEmployee(Employee _selectedItem)
+        private ICommand? _deleteEmployeeCommand;
+        public ICommand? DeleteEmployeeCommand { get => _deleteEmployeeCommand; set => SetProperty(ref _deleteEmployeeCommand, value); }
+        private void DeleteEmployee(Employee? _selectedItem)
         {
             Employee? employee = _selectedItem as Employee;
             if (employee == null) { MessageBox.Show("Сотрудник не выбран!"); return; }
@@ -71,12 +71,12 @@ namespace WpfEmployeesOrders.ViewModels
         }
 
         //--добавляем новый отдел--//
-        private ICommand _addDivisionCommand;
-        public ICommand AddDivisionCommand { get => _addDivisionCommand; set => SetProperty(ref _addDivisionCommand, value); }
+        private ICommand? _addDivisionCommand;
+        public ICommand? AddDivisionCommand { get => _addDivisionCommand; set => SetProperty(ref _addDivisionCommand, value); }
 
         private void AddDivision()
         {
-            DivisionWindow divisionWindow = new DivisionWindow(new Division());
+            DivisionWindow divisionWindow = new (new Division());
             if (divisionWindow.ShowDialog() == true)
             {
                 Division newDivision = divisionWindow.Division;
@@ -87,13 +87,13 @@ namespace WpfEmployeesOrders.ViewModels
         }
 
         //--редактирование отдела--//
-        private ICommand _editDivisionCommand;
-        public ICommand EditDivisionCommand { get => _editDivisionCommand; set => SetProperty(ref _editDivisionCommand, value); }
-        private void EditDivision(Division _selectedItem)
+        private ICommand? _editDivisionCommand;
+        public ICommand? EditDivisionCommand { get => _editDivisionCommand; set => SetProperty(ref _editDivisionCommand, value); }
+        private void EditDivision(Division? _selectedItem)
         {
             Division? division = _selectedItem as Division;
             if (division == null) { MessageBox.Show("Отдел не выбран!"); return; }
-            DivisionWindow divisionWindow = new DivisionWindow(division);
+            DivisionWindow divisionWindow = new (division);
             if (divisionWindow.ShowDialog() == true)
             {
                 Division newDivision = divisionWindow.Division;
@@ -105,9 +105,9 @@ namespace WpfEmployeesOrders.ViewModels
 
 
         //--удаляем отдел--//
-        private ICommand _deleteDivisionCommand;
-        public ICommand DeleteDivisionCommand { get => _deleteDivisionCommand; set => SetProperty(ref _deleteDivisionCommand, value); }
-        private void DeleteDivision(Division _selectedItem)
+        private ICommand? _deleteDivisionCommand;
+        public ICommand? DeleteDivisionCommand { get => _deleteDivisionCommand; set => SetProperty(ref _deleteDivisionCommand, value); }
+        private void DeleteDivision(Division? _selectedItem)
         {
             Division? division = _selectedItem as Division;
             if (division == null) { MessageBox.Show("Отдел не выбран!"); return; }

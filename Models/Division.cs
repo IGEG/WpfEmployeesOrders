@@ -19,5 +19,11 @@ namespace WpfEmployeesOrders.Models
         [ObservableProperty] private Employee? _chief;
 
 
+        public override string ToString()
+        {
+            return $"{DivisionName}";
+        }
+
+
     }
 }

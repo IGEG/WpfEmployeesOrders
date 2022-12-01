@@ -30,8 +30,7 @@ namespace WpfEmployeesOrders.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Divisions");
                 });
@@ -43,6 +42,9 @@ namespace WpfEmployeesOrders.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("DateOfBirthday")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DivisionName")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
@@ -87,8 +89,8 @@ namespace WpfEmployeesOrders.Migrations
             modelBuilder.Entity("WpfEmployeesOrders.Models.Division", b =>
                 {
                     b.HasOne("WpfEmployeesOrders.Models.Employee", "Chief")
-                        .WithOne("Division")
-                        .HasForeignKey("WpfEmployeesOrders.Models.Division", "EmployeeId")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -104,11 +106,6 @@ namespace WpfEmployeesOrders.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("WpfEmployeesOrders.Models.Employee", b =>
-                {
-                    b.Navigation("Division");
                 });
 #pragma warning restore 612, 618
         }
