@@ -29,12 +29,16 @@ namespace WpfEmployeesOrders.ViewModels
 
         private void AddEmployee()
         {
-            EmployeeWindow employeeWindow = new (new Employee());
+            EmployeeWindow? employeeWindow = new(new());
             if (employeeWindow.ShowDialog() == true)
             {
                 Employee newEmployee = employeeWindow.Employee;
-                appContext.Employees.Add(newEmployee);
-                appContext.SaveChanges();
+                if (EmployeesCollection != null && !EmployeesCollection.Contains(newEmployee))
+                {
+                    appContext.Employees.Add(newEmployee);
+                    appContext.SaveChanges();
+                }
+                else MessageBox.Show($"Сотрудник уже есть в базе данных");
            
             }
         }
@@ -50,8 +54,8 @@ namespace WpfEmployeesOrders.ViewModels
             if (employeeWindow.ShowDialog() == true)
             {
                 Employee newEmployee = employeeWindow.Employee;
-                appContext.Entry(newEmployee).State = EntityState.Modified;
-                appContext.SaveChanges();
+                    appContext.Entry(newEmployee).State = EntityState.Modified;
+                    appContext.SaveChanges();
             }
 
         }
@@ -80,9 +84,13 @@ namespace WpfEmployeesOrders.ViewModels
             if (divisionWindow.ShowDialog() == true)
             {
                 Division newDivision = divisionWindow.Division;
-                appContext.Divisions.Add(newDivision);
-                appContext.SaveChanges();
-           
+                if (DivisionCollection != null && !DivisionCollection.Contains(newDivision))
+                {
+                    appContext.Divisions.Add(newDivision);
+                    appContext.SaveChanges();
+                }
+                else MessageBox.Show($"Отдел с таким названием уже есть в базе данных");
+
             }
         }
 

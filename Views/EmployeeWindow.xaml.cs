@@ -46,8 +46,10 @@ namespace WpfEmployeesOrders.Views
 
         private void DivisionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-
+            string? divisionName = DivisionComboBox.SelectedItem as string;
+            if (divisionName != null)
+            Employee.DivisionName = divisionName;
+            else MessageBox.Show("Список сотрудников пуст!");
         }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:core="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:WpfEmployeesOrders.Models"
         mc:Ignorable="d"
-        Title="Shop" Height="450" Width="800">
+        Title="Shop" Height="450" Width="900">
     <Window.Resources>
         <!--Enum пол сотрудников-->
         <ObjectDataProvider x:Key="myEnum" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
@@ -41,7 +41,8 @@
                                 <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" IsReadOnly="True"  Width="150"/>
                                 <DataGridTextColumn Header="Отчество" Binding="{Binding SurName}" IsReadOnly="True"  Width="150"/>
                                 <DataGridTextColumn Header="Дата Рождения" Binding="{Binding DateOfBirthday , StringFormat=\{0:d-MM-yyyy\}}" IsReadOnly="True"  Width="150"/>
-                                <DataGridComboBoxColumn Header="Пол" SelectedItemBinding="{Binding GenderEmployee}" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource myEnum}}" Width="150"/>
+                                <DataGridComboBoxColumn Header="Пол" SelectedItemBinding="{Binding GenderEmployee}" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource myEnum}}" Width="50"/>
+                                <DataGridTextColumn Header="Отдел" Binding="{Binding DivisionName}" IsReadOnly="True"  Width="150"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <DockPanel HorizontalAlignment="Left">

@@ -26,10 +26,10 @@ namespace WpfEmployeesOrders.Models
         }
         public override bool Equals(object? obj)
         {
-            if (obj is Employee employee)
-            return _lastName == employee._lastName && FirstName == employee.FirstName && SurName == employee.SurName
+            Employee? employee = obj as Employee;
+            return  employee!=null && LastName == employee.LastName && FirstName == employee.FirstName && SurName == employee.SurName
                     && DateOfBirthday == employee.DateOfBirthday && GenderEmployee == employee.GenderEmployee;
-            return false;
+           
         }
 
         public override int GetHashCode() => EmployeeId.GetHashCode();
