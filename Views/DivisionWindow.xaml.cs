@@ -23,11 +23,12 @@ namespace WpfEmployeesOrders.Views
     /// </summary>
     public partial class DivisionWindow : Window
     {
-        ApplicationContext ApplicationContext = new ApplicationContext();
+        ApplicationContext applicationContext;
         public Division Division { get; private set; }
 
-        public DivisionWindow(Division division)
+        public DivisionWindow(Division division, ApplicationContext context)
         {
+            applicationContext = context;
             InitializeComponent();
             Division = division;
             DataContext = Division;
@@ -42,8 +43,8 @@ namespace WpfEmployeesOrders.Views
         private void LoadedEmployees(object sender, RoutedEventArgs e)
         {
             List<Employee> Employees = new List<Employee>();
-            ApplicationContext.Employees.Load();
-            Employees = ApplicationContext.Employees.Local.ToList();
+            applicationContext.Employees.Load();
+            Employees = applicationContext.Employees.Local.ToList();
             EmplComboBox.ItemsSource = Employees;
             EmplComboBox.Text = Employees.ToString();
         }

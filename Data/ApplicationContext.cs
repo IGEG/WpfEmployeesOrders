@@ -8,9 +8,10 @@ namespace WpfEmployeesOrders.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Division> Divisions { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            optionsBuilder.UseSqlite("Data Source=shop.db");
+
         }
+     
     }
 }

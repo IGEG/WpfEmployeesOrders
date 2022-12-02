@@ -23,9 +23,10 @@ namespace WpfEmployeesOrders.Views
     public partial class EmployeeWindow : Window
     {
         public Employee Employee { get; private set; }
-        ApplicationContext ApplicationContext = new();
-        public EmployeeWindow(Employee employee)
+        ApplicationContext applicationContext ;
+        public EmployeeWindow(Employee employee, ApplicationContext context)
         {
+            applicationContext = context;
             InitializeComponent();
             Employee = employee;
             DataContext = Employee; 
@@ -38,8 +39,8 @@ namespace WpfEmployeesOrders.Views
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             List<string?> divisionNames = new();
-            ApplicationContext.Divisions.Load();
-            divisionNames = ApplicationContext.Divisions.Local.Select(d => d.DivisionName).ToList();
+            applicationContext.Divisions.Load();
+            divisionNames = applicationContext.Divisions.Local.Select(d => d.DivisionName).ToList();
             DivisionComboBox.ItemsSource = divisionNames;
             
         }

@@ -19,7 +19,7 @@ namespace WpfEmployeesOrders.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
-        ApplicationContext appContext = new();
+        ApplicationContext appContext;
         [ObservableProperty] private ObservableCollection<Employee>? _employeesCollection;
         [ObservableProperty] private ObservableCollection<Division>? _divisionCollection;
         [ObservableProperty] private ObservableCollection<Order>? _ordersCollection;
@@ -30,7 +30,7 @@ namespace WpfEmployeesOrders.ViewModels
 
         private void AddEmployee()
         {
-            EmployeeWindow? employeeWindow = new(new());
+            EmployeeWindow? employeeWindow = new(new(), appContext);
             if (employeeWindow.ShowDialog() == true)
             {
                 Employee newEmployee = employeeWindow.Employee;
@@ -51,7 +51,7 @@ namespace WpfEmployeesOrders.ViewModels
         {
             Employee? employee = _selectedItem as Employee;
             if (employee == null) { MessageBox.Show("Сотрудник не выбран!"); return; }
-            EmployeeWindow employeeWindow = new (employee);
+            EmployeeWindow employeeWindow = new (employee, appContext);
             if (employeeWindow.ShowDialog() == true)
             {
                 Employee newEmployee = employeeWindow.Employee;
@@ -81,7 +81,7 @@ namespace WpfEmployeesOrders.ViewModels
 
         private void AddDivision()
         {
-            DivisionWindow divisionWindow = new (new Division());
+            DivisionWindow divisionWindow = new (new Division(),appContext);
             if (divisionWindow.ShowDialog() == true)
             {
                 Division newDivision = divisionWindow.Division;
@@ -102,7 +102,7 @@ namespace WpfEmployeesOrders.ViewModels
         {
             Division? division = _selectedItem as Division;
             if (division == null) { MessageBox.Show("Отдел не выбран!"); return; }
-            DivisionWindow divisionWindow = new (division);
+            DivisionWindow divisionWindow = new (division, appContext);
             if (divisionWindow.ShowDialog() == true)
             {
                 Division newDivision = divisionWindow.Division;
@@ -126,8 +126,9 @@ namespace WpfEmployeesOrders.ViewModels
 
         }
 
-        public MainViewModel()
+        public MainViewModel( ApplicationContext applicationContext)
         {
+            appContext = applicationContext;
             appContext.Employees.Load();
             EmployeesCollection = appContext.Employees.Local.ToObservableCollection();
             appContext.Divisions.Load();

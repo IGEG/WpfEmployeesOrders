@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfEmployeesOrders.Data;
 using WpfEmployeesOrders.ViewModels;
 
 namespace WpfEmployeesOrders
@@ -21,10 +22,12 @@ namespace WpfEmployeesOrders
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        ApplicationContext applicationContext;
+        public MainWindow( ApplicationContext context)
         {
+            applicationContext = context;
             InitializeComponent();
-            var viewModel = new MainViewModel();
+            var viewModel = new MainViewModel(applicationContext);
             DataContext = viewModel;
             EmployeesGrid.DataContext = viewModel.EmployeesCollection;
             DivisionGrid.DataContext = viewModel.DivisionCollection;
