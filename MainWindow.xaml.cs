@@ -30,6 +30,6 @@ namespace WpfEmployeesOrders
             DivisionGrid.DataContext = viewModel.DivisionCollection;
             
         }
-     
+
     }
 }

@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using WpfEmployeesOrders.Data;
 using WpfEmployeesOrders.Models;
@@ -139,5 +140,6 @@ namespace WpfEmployeesOrders.ViewModels
             AddDivisionCommand = new RelayCommand(AddDivision);
 
         }
+
     }
 }
