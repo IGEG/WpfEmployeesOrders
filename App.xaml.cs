@@ -30,6 +30,7 @@ namespace WpfEmployeesOrders
                 options.UseSqlite("Data Source=shop.db");
             });
             services.AddSingleton<MainWindow>();
+            services.AddTransient<IDataDivision, DataDivision>();
         }
         private void OnStartup(object sender, StartupEventArgs e)
         {

@@ -19,6 +19,7 @@ namespace WpfEmployeesOrders.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
+        private readonly IDataDivision _dataDivision;
         ApplicationContext appContext;
         [ObservableProperty] private ObservableCollection<Employee>? _employeesCollection;
         [ObservableProperty] private ObservableCollection<Division>? _divisionCollection;
@@ -81,18 +82,7 @@ namespace WpfEmployeesOrders.ViewModels
 
         private void AddDivision()
         {
-            DivisionWindow divisionWindow = new (new Division(),appContext);
-            if (divisionWindow.ShowDialog() == true)
-            {
-                Division newDivision = divisionWindow.Division;
-                if (DivisionCollection != null && !DivisionCollection.Contains(newDivision))
-                {
-                    appContext.Divisions.Add(newDivision);
-                    appContext.SaveChanges();
-                }
-                else MessageBox.Show($"Отдел с таким названием уже есть в базе данных");
-
-            }
+            _dataDivision.AddDivision();
         }
 
         //--редактирование отдела--//
@@ -100,15 +90,7 @@ namespace WpfEmployeesOrders.ViewModels
         public ICommand? EditDivisionCommand { get => _editDivisionCommand; set => SetProperty(ref _editDivisionCommand, value); }
         private void EditDivision(Division? _selectedItem)
         {
-            Division? division = _selectedItem as Division;
-            if (division == null) { MessageBox.Show("Отдел не выбран!"); return; }
-            DivisionWindow divisionWindow = new (division, appContext);
-            if (divisionWindow.ShowDialog() == true)
-            {
-                Division newDivision = divisionWindow.Division;
-                appContext.Entry(newDivision).State = EntityState.Modified;
-                appContext.SaveChanges();
-            }
+            _dataDivision.EditDivision(_selectedItem);
 
         }
 
@@ -118,16 +100,12 @@ namespace WpfEmployeesOrders.ViewModels
         public ICommand? DeleteDivisionCommand { get => _deleteDivisionCommand; set => SetProperty(ref _deleteDivisionCommand, value); }
         private void DeleteDivision(Division? _selectedItem)
         {
-            Division? division = _selectedItem as Division;
-            if (division == null) { MessageBox.Show("Отдел не выбран!"); return; }
-            appContext.Divisions.Remove(division);
-            appContext.SaveChanges();
-
-
+            _dataDivision.DeleteDivision(_selectedItem);
         }
 
-        public MainViewModel( ApplicationContext applicationContext)
+        public MainViewModel( ApplicationContext applicationContext, IDataDivision dataDivision)
         {
+            _dataDivision = dataDivision;
             appContext = applicationContext;
             appContext.Employees.Load();
             EmployeesCollection = appContext.Employees.Local.ToObservableCollection();
