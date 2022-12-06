@@ -31,6 +31,7 @@ namespace WpfEmployeesOrders
             });
             services.AddSingleton<MainWindow>();
             services.AddTransient<IDataDivision, DataDivision>();
+            services.AddTransient<IDataEmployee, DataEmployee>();
         }
         private void OnStartup(object sender, StartupEventArgs e)
         {

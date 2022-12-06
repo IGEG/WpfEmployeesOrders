@@ -62,5 +62,12 @@ namespace WpfEmployeesOrders.Data
                 _context.SaveChanges();
             }
         }
+
+        public ObservableCollection<Division> GetDivisions()
+        {
+            if (DivisionCollection != null)
+                return DivisionCollection;
+            else return new ObservableCollection<Division>(); 
+        }
     }
 }

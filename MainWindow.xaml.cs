@@ -23,17 +23,19 @@ namespace WpfEmployeesOrders
     public partial class MainWindow : Window
     {
         private readonly IDataDivision _dataDivision;
+        private readonly IDataEmployee _dataEmployee;
         private readonly ApplicationContext _applicationContext;
-        public MainWindow( ApplicationContext context, IDataDivision dataDivision)
+        public MainWindow( ApplicationContext context, IDataDivision dataDivision, IDataEmployee dataEmployee)
         {
             _dataDivision = dataDivision;
+            _dataEmployee = dataEmployee;
             _applicationContext = context;
             InitializeComponent();
-            var viewModel = new MainViewModel(_applicationContext, _dataDivision);
+            var viewModel = new MainViewModel(_applicationContext, _dataDivision, _dataEmployee);
             DataContext = viewModel;
-            EmployeesGrid.DataContext = viewModel.EmployeesCollection;
-            DivisionGrid.DataContext = viewModel.DivisionCollection;
-            
+            EmployeesGrid.DataContext = _dataEmployee.GetEmployees();
+            DivisionGrid.DataContext = _dataDivision.GetDivisions();
+      
         }
 
     }

@@ -42,18 +42,20 @@ namespace WpfEmployeesOrders.Views
 
         private void LoadedEmployees(object sender, RoutedEventArgs e)
         {
-            List<Employee> Employees = new List<Employee>();
+            ObservableCollection<Employee> employeesName = new();
             applicationContext.Employees.Load();
-            Employees = applicationContext.Employees.Local.ToList();
-            EmplComboBox.ItemsSource = Employees;
-            EmplComboBox.Text = Employees.ToString();
+            employeesName = applicationContext.Employees.Local.ToObservableCollection();
+            EmplComboBox.ItemsSource = employeesName;
+            EmplComboBox.Text = employeesName.ToString();
         }
 
         private void EmplComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Employee? employee = EmplComboBox.SelectedItem as Employee;
             if (employee != null)
-            Division.EmployeeId = employee.EmployeeId;
+            {
+                Division.Chief = employee;
+            }
             else MessageBox.Show("Список сотрудников пуст!");
 
         }

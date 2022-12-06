@@ -20,9 +20,8 @@ namespace WpfEmployeesOrders.ViewModels
     public partial class MainViewModel : ObservableObject
     {
         private readonly IDataDivision _dataDivision;
+        private readonly IDataEmployee _dataEmployee;
         ApplicationContext appContext;
-        [ObservableProperty] private ObservableCollection<Employee>? _employeesCollection;
-        [ObservableProperty] private ObservableCollection<Division>? _divisionCollection;
         [ObservableProperty] private ObservableCollection<Order>? _ordersCollection;
 
         //--добавляем нового сотрудникаа--//
@@ -31,18 +30,7 @@ namespace WpfEmployeesOrders.ViewModels
 
         private void AddEmployee()
         {
-            EmployeeWindow? employeeWindow = new(new(), appContext);
-            if (employeeWindow.ShowDialog() == true)
-            {
-                Employee newEmployee = employeeWindow.Employee;
-                if (EmployeesCollection != null && !EmployeesCollection.Contains(newEmployee))
-                {
-                    appContext.Employees.Add(newEmployee);
-                    appContext.SaveChanges();
-                }
-                else MessageBox.Show($"Сотрудник уже есть в базе данных");
-           
-            }
+            _dataEmployee.AddEmployee();
         }
 
         //--редактирование данных выбранного сотрудника--//
@@ -50,16 +38,7 @@ namespace WpfEmployeesOrders.ViewModels
         public ICommand? EditEmployeeCommand { get => _editEmployeeCommand; set => SetProperty(ref _editEmployeeCommand, value); }
         private void EditEmployee(Employee? _selectedItem)
         {
-            Employee? employee = _selectedItem as Employee;
-            if (employee == null) { MessageBox.Show("Сотрудник не выбран!"); return; }
-            EmployeeWindow employeeWindow = new (employee, appContext);
-            if (employeeWindow.ShowDialog() == true)
-            {
-                Employee newEmployee = employeeWindow.Employee;
-                    appContext.Entry(newEmployee).State = EntityState.Modified;
-                    appContext.SaveChanges();
-            }
-
+            _dataEmployee.EditEmployee(_selectedItem);
         }
 
 
@@ -68,12 +47,7 @@ namespace WpfEmployeesOrders.ViewModels
         public ICommand? DeleteEmployeeCommand { get => _deleteEmployeeCommand; set => SetProperty(ref _deleteEmployeeCommand, value); }
         private void DeleteEmployee(Employee? _selectedItem)
         {
-            Employee? employee = _selectedItem as Employee;
-            if (employee == null) { MessageBox.Show("Сотрудник не выбран!"); return; }
-            appContext.Employees.Remove(employee);
-            appContext.SaveChanges();
-
-
+            _dataEmployee.DeleteEmployee(_selectedItem);
         }
 
         //--добавляем новый отдел--//
@@ -103,14 +77,11 @@ namespace WpfEmployeesOrders.ViewModels
             _dataDivision.DeleteDivision(_selectedItem);
         }
 
-        public MainViewModel( ApplicationContext applicationContext, IDataDivision dataDivision)
+        public MainViewModel( ApplicationContext applicationContext, IDataDivision dataDivision, IDataEmployee dataEmployee)
         {
             _dataDivision = dataDivision;
+            _dataEmployee = dataEmployee;
             appContext = applicationContext;
-            appContext.Employees.Load();
-            EmployeesCollection = appContext.Employees.Local.ToObservableCollection();
-            appContext.Divisions.Load();
-            DivisionCollection = appContext.Divisions.Local.ToObservableCollection();
             AddEmployeeCommand = new RelayCommand(AddEmployee);
             EditEmployeeCommand = new RelayCommand<Employee>(EditEmployee);
             EditDivisionCommand = new RelayCommand<Division>(EditDivision);

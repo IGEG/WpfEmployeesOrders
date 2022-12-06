@@ -8,13 +8,11 @@ using WpfEmployeesOrders.Models;
 
 namespace WpfEmployeesOrders.Data
 {
-    public interface IDataDivision
-    { 
-        void AddDivision();
-        void EditDivision(Division? division);
-        void DeleteDivision(Division? division);
-
-        ObservableCollection<Division> GetDivisions();
-
+    public interface IDataEmployee
+    {
+        void AddEmployee();
+        void EditEmployee(Employee? employee);
+        void DeleteEmployee(Employee? employee);
+        ObservableCollection<Employee> GetEmployees();
     }
 }
