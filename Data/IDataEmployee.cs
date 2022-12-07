@@ -14,5 +14,6 @@ namespace WpfEmployeesOrders.Data
         void EditEmployee(Employee? employee);
         void DeleteEmployee(Employee? employee);
         ObservableCollection<Employee> GetEmployees();
+        Employee GetEmployeeByName(string Name);
     }
 }

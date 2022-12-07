@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfEmployeesOrders.Data;
+using WpfEmployeesOrders.Models;
 using WpfEmployeesOrders.ViewModels;
+using WpfEmployeesOrders.Views;
 
 namespace WpfEmployeesOrders
 {
@@ -24,19 +27,31 @@ namespace WpfEmployeesOrders
     {
         private readonly IDataDivision _dataDivision;
         private readonly IDataEmployee _dataEmployee;
-        private readonly ApplicationContext _applicationContext;
-        public MainWindow( ApplicationContext context, IDataDivision dataDivision, IDataEmployee dataEmployee)
+      
+        public MainWindow(IDataDivision dataDivision, IDataEmployee dataEmployee)
         {
             _dataDivision = dataDivision;
             _dataEmployee = dataEmployee;
-            _applicationContext = context;
             InitializeComponent();
-            var viewModel = new MainViewModel(_applicationContext, _dataDivision, _dataEmployee);
+            var viewModel = new MainViewModel( _dataDivision, _dataEmployee);
             DataContext = viewModel;
             EmployeesGrid.DataContext = _dataEmployee.GetEmployees();
             DivisionGrid.DataContext = _dataDivision.GetDivisions();
       
         }
 
+        private void GetChiefBtn(object sender, RoutedEventArgs e)
+        {
+            var btn = ((Button)sender);
+            var btnContent = btn.Content.ToString();
+            if (btnContent != null)
+            { Employee employee = _dataEmployee.GetEmployeeByName(btnContent);
+              EmployeeWindow window = new(employee, _dataDivision);
+                window.Show();
+            }
+            else { MessageBox.Show("Сотрудник не выбран"); }
+            
+
+        }
     }
 }

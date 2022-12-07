@@ -66,7 +66,13 @@
     RowBackground="LightGray" AlternatingRowBackground="White">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Название отдела" Binding="{Binding DivisionName}" IsReadOnly="True" Width="150"/>
-                                <DataGridHyperlinkColumn Header="Руководитель" Binding="{Binding Chief}" IsReadOnly="True"  Width="150"/>
+                                <DataGridTemplateColumn Header="Руководитель" IsReadOnly="True"  Width="150">
+                                    <DataGridTemplateColumn.CellTemplate >
+                                        <DataTemplate>
+                                            <Button Content="{Binding Chief}" Click="GetChiefBtn"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                         <DockPanel HorizontalAlignment="Left">
@@ -77,15 +83,6 @@
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>
-            <TabItem x:Name="ordersTab">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Height="20" Width="20" Source="Img/order.png" />
-                        <TextBlock Margin="3">Заказы</TextBlock>
-                    </StackPanel>
-                </TabItem.Header>
-            </TabItem>
         </TabControl>
-
     </Grid>
 </Window>

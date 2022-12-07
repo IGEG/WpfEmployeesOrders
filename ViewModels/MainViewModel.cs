@@ -21,9 +21,8 @@ namespace WpfEmployeesOrders.ViewModels
     {
         private readonly IDataDivision _dataDivision;
         private readonly IDataEmployee _dataEmployee;
-        ApplicationContext appContext;
-        [ObservableProperty] private ObservableCollection<Order>? _ordersCollection;
-
+        
+        #region методы CRUD Employee
         //--добавляем нового сотрудникаа--//
         private ICommand? _addEmployeeCommand;
         public ICommand? AddEmployeeCommand { get => _addEmployeeCommand; set => SetProperty(ref _addEmployeeCommand, value); }
@@ -49,7 +48,9 @@ namespace WpfEmployeesOrders.ViewModels
         {
             _dataEmployee.DeleteEmployee(_selectedItem);
         }
+        #endregion
 
+        #region методы CRUD Division
         //--добавляем новый отдел--//
         private ICommand? _addDivisionCommand;
         public ICommand? AddDivisionCommand { get => _addDivisionCommand; set => SetProperty(ref _addDivisionCommand, value); }
@@ -76,12 +77,12 @@ namespace WpfEmployeesOrders.ViewModels
         {
             _dataDivision.DeleteDivision(_selectedItem);
         }
-
-        public MainViewModel( ApplicationContext applicationContext, IDataDivision dataDivision, IDataEmployee dataEmployee)
+        #endregion
+        public MainViewModel(IDataDivision dataDivision, IDataEmployee dataEmployee)
         {
             _dataDivision = dataDivision;
             _dataEmployee = dataEmployee;
-            appContext = applicationContext;
+
             AddEmployeeCommand = new RelayCommand(AddEmployee);
             EditEmployeeCommand = new RelayCommand<Employee>(EditEmployee);
             EditDivisionCommand = new RelayCommand<Division>(EditDivision);
