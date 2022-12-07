@@ -52,5 +52,10 @@ namespace WpfEmployeesOrders.Views
             Employee.DivisionName = divisionName;
             else MessageBox.Show("Список сотрудников пуст!");
         }
+
+        private void TextBox_Error(object sender, ValidationErrorEventArgs e)
+        {
+            MessageBox.Show(e.Error.ErrorContent.ToString());
+        }
     }
 }

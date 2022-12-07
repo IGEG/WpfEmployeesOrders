@@ -1,10 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
+using System.ComponentModel;
 using System.Windows.Navigation;
 
 namespace WpfEmployeesOrders.Models
 {
-    public partial class Employee:ObservableObject
+    public partial class Employee:ObservableObject,IDataErrorInfo
     {
 
         [ObservableProperty] private int _employeeId;
@@ -20,6 +21,52 @@ namespace WpfEmployeesOrders.Models
         [ObservableProperty] private Gender _genderEmployee;
        
         [ObservableProperty] private string? _divisionName;
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = String.Empty;
+                switch (columnName)
+                {
+                    case "LastName":
+                        if (LastName?.Length <= 1)
+                        {
+                            error = "Укажите фамилию";
+                        }
+                        break;
+
+                    case "FirstName":
+                        if (FirstName?.Length <= 1)
+                        {
+                            error = "Укажите имя";
+                        }
+                        break;
+                    case "SurName":
+                        if (SurName?.Length <= 1)
+                        {
+                            error = "Укажите отчество";
+                        }
+                        break;
+                    case "DateOfBirthday":
+                        if (DateOfBirthday?.Length <= 1)
+                        {
+                            error = "Укажите дату рождения";
+                        }
+                        break;
+                    case "DivisionName":
+                        if (DivisionName?.Length <= 1)
+                        {
+                            error = "Укажите название отдела";
+                        }
+                        break;
+                }
+                return error;
+            }
+        }
+
         public override string ToString()
         {
             return $"{LastName} {FirstName} {SurName}";

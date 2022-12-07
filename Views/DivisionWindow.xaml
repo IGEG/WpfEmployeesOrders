@@ -44,8 +44,16 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="Название отдела" Grid.Row="0"/>
         <TextBlock Text="Руководитель" Grid.Row="1"  />
-        <TextBox Text="{Binding DivisionName}" Grid.Column="1" Grid.Row="0"  />
-        <ComboBox x:Name="EmplComboBox" Loaded="LoadedEmployees" SelectionChanged="EmplComboBox_SelectionChanged" Grid.Column="1" Grid.Row="1" />
+        <TextBox  Grid.Column="1" Grid.Row="0" Validation.Error="TextBox_Error">
+            <TextBox.Text>
+                <Binding Path="DivisionName" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <DataErrorValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <ComboBox x:Name="EmplComboBox" Loaded="LoadedEmployees" SelectionChanged="EmplComboBox_SelectionChanged" Grid.Column="1" Grid.Row="1"/>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Margin="5">
             <Button IsDefault="True" VerticalAlignment="Center" Click="Accept_Click" ToolTip="ОК" Style="{StaticResource BtnUser}">OK</Button>
             <Button IsCancel="True" VerticalAlignment="Center" Style="{StaticResource BtnUser}" ToolTip="ОТМЕНА">Отмена</Button>
